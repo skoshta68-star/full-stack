@@ -18,6 +18,7 @@ interface Props {
   onToggleRemember: (v: boolean) => void;
   onGoogleSuccess: (credential: string) => void;
   onGoogleError: () => void;
+  onForgotPassword: () => void;
 }
 
 const container = {
@@ -33,7 +34,7 @@ const item = {
 export const LoginForm: React.FC<Props> = ({
   formData, error, loading, showPassword, rememberMe,
   onFormChange, onSubmit, onTogglePassword, onToggleRemember,
-  onGoogleSuccess, onGoogleError
+  onGoogleSuccess, onGoogleError, onForgotPassword
 }) => {
   const { toasts, removeToast, showError } = useToast();
   useEffect(() => { if (error) showError('Login Failed', error); }, [error, showError]);
@@ -97,7 +98,7 @@ export const LoginForm: React.FC<Props> = ({
                   className="w-[14px] h-[14px] rounded cursor-pointer" style={{ accentColor: '#6366f1' }} />
                 <span className="text-[12px]" style={{ color: '#64748b' }}>Remember me</span>
               </label>
-              <Link to="/forgot-password" className="text-[12px] font-semibold hover:underline" style={{ color: '#6366f1' }}>Forgot password?</Link>
+              <button type="button" onClick={onForgotPassword} className="text-[12px] font-semibold hover:underline" style={{ color: '#6366f1' }}>Forgot password?</button>
             </motion.div>
 
             <motion.div variants={item}>
