@@ -96,23 +96,20 @@ export const LoginForm: React.FC<Props> = ({
 
             <motion.div variants={item} className="mb-4">
               <label className="block text-[12px] font-semibold mb-1.5" style={{ color: '#475569' }}>Login as</label>
-              <div className="flex gap-2">
-                {[
-                  { value: 'user', label: 'User', icon: Icons.User },
-                  { value: 'store_owner', label: 'Store Owner', icon: Icons.Store },
-                  { value: 'admin', label: 'Admin', icon: Icons.Shield },
-                ].map((role) => (
-                  <button key={role.value} type="button" onClick={() => onRoleChange(role.value)}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-[9px] rounded-[10px] text-[12px] font-semibold transition-all"
-                    style={{
-                      border: selectedRole === role.value ? '1.5px solid #6366f1' : '1.5px solid #e2e8f0',
-                      background: selectedRole === role.value ? 'rgba(99, 102, 241, 0.08)' : '#ffffff',
-                      color: selectedRole === role.value ? '#6366f1' : '#64748b',
-                    }}>
-                    <role.icon className="w-[14px] h-[14px]" />
-                    <span>{role.label}</span>
-                  </button>
-                ))}
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Icons.User className="w-[16px] h-[16px]" style={{ color: '#94a3b8' }} /></div>
+                <select value={selectedRole} onChange={(e) => onRoleChange(e.target.value)}
+                  className="w-full pl-9 pr-8 py-[11px] rounded-[10px] outline-none text-[13px] transition-all appearance-none cursor-pointer"
+                  style={{ border: '1.5px solid #e2e8f0', background: '#ffffff', color: '#1e293b' }}
+                  onFocus={(e) => { e.target.style.borderColor = '#6366f1'; e.target.style.boxShadow = '0 0 0 3px rgba(99,102,241,0.1)'; }}
+                  onBlur={(e) => { e.target.style.borderColor = '#e2e8f0'; e.target.style.boxShadow = 'none'; }}>
+                  <option value="user">User</option>
+                  <option value="store_owner">Store Owner</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <Icons.ChevronDown className="w-[16px] h-[16px]" style={{ color: '#94a3b8' }} />
+                </div>
               </div>
             </motion.div>
 
