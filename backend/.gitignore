@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.local
+database.sqlite
+dist/
+*.log
+server_out.log
+server_err.log
+server.log
+server.err
+.DS_Store
