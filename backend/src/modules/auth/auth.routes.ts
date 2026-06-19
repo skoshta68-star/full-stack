@@ -18,9 +18,9 @@ router.post('/register', userValidation, async (req: Request, res: Response) => 
 
 router.post('/login', loginValidation, async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
-    console.log('[LOGIN] Attempt:', { email, passwordLength: password?.length });
-    const result = await AuthService.login(email, password);
+    const { email, password, role } = req.body;
+    console.log('[LOGIN] Attempt:', { email, passwordLength: password?.length, role });
+    const result = await AuthService.login(email, password, role);
     res.json(result);
   } catch (error: any) {
     console.log('[LOGIN] Error:', error.message);

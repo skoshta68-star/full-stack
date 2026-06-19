@@ -12,6 +12,7 @@ export function useLogin() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+  const [selectedRole, setSelectedRole] = useState('user');
 
   const handleQuickLogin = (email: string, password: string) => setFormData({ email, password });
 
@@ -22,7 +23,7 @@ export function useLogin() {
     if (Object.keys(errors).length) { setError('All fields required'); return; }
     setLoading(true);
     try {
-      const res = await authApi.login({ email: formData.email, password: formData.password });
+      const res = await authApi.login({ email: formData.email, password: formData.password, role: selectedRole });
       login(res.token, res.user);
       navigate('/');
     } catch (err: any) {
@@ -32,5 +33,5 @@ export function useLogin() {
     }
   };
 
-  return { formData, setFormData, error, loading, showPassword, setShowPassword, rememberMe, setRememberMe, handleSubmit, handleQuickLogin };
+  return { formData, setFormData, error, loading, showPassword, setShowPassword, rememberMe, setRememberMe, selectedRole, setSelectedRole, handleSubmit, handleQuickLogin };
 }

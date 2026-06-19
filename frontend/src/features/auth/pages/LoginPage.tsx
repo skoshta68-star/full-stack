@@ -16,7 +16,7 @@ const LoginPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const { isAuthenticated, login } = useAuth();
   const state = location.state as { email?: string; password?: string } | null;
-  const { formData, setFormData, error, loading, showPassword, setShowPassword, rememberMe, setRememberMe, handleSubmit } = useLogin();
+  const { formData, setFormData, error, loading, showPassword, setShowPassword, rememberMe, setRememberMe, selectedRole, setSelectedRole, handleSubmit } = useLogin();
   const [googleLoading, setGoogleLoading] = useState(false);
 
   const resetToken = searchParams.get('token') || '';
@@ -79,10 +79,10 @@ const LoginPage: React.FC = () => {
         <IllustrationPanel />
         <LoginForm
           formData={formData} error={error || (googleLoading ? '' : '')} loading={loading || googleLoading}
-          showPassword={showPassword} rememberMe={rememberMe}
+          showPassword={showPassword} rememberMe={rememberMe} selectedRole={selectedRole}
           onFormChange={setFormData} onSubmit={handleSubmit}
           onTogglePassword={() => setShowPassword(!showPassword)}
-          onToggleRemember={setRememberMe}
+          onToggleRemember={setRememberMe} onRoleChange={setSelectedRole}
           onGoogleSuccess={handleGoogleSuccess}
           onGoogleError={() => {}}
           onForgotPassword={goToForgot} />

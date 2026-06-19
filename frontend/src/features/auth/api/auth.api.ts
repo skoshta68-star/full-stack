@@ -2,7 +2,7 @@ import api from '../../../services/api';
 import { AuthResponse, LoginCredentials, RegisterData } from '../types';
 
 export const authApi = {
-  login(credentials: LoginCredentials): Promise<AuthResponse> {
+  login(credentials: LoginCredentials & { role?: string }): Promise<AuthResponse> {
     return api.post<AuthResponse>('/auth/login', credentials).then(r => r.data);
   },
   googleLogin(credential: string): Promise<AuthResponse> {

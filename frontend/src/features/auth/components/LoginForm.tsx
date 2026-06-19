@@ -12,10 +12,12 @@ interface Props {
   loading: boolean;
   showPassword: boolean;
   rememberMe: boolean;
+  selectedRole: string;
   onFormChange: (data: { email: string; password: string }) => void;
   onSubmit: (e: React.FormEvent) => void;
   onTogglePassword: () => void;
   onToggleRemember: (v: boolean) => void;
+  onRoleChange: (role: string) => void;
   onGoogleSuccess: (credential: string) => void;
   onGoogleError: () => void;
   onForgotPassword: () => void;
@@ -32,8 +34,8 @@ const item = {
 };
 
 export const LoginForm: React.FC<Props> = ({
-  formData, error, loading, showPassword, rememberMe,
-  onFormChange, onSubmit, onTogglePassword, onToggleRemember,
+  formData, error, loading, showPassword, rememberMe, selectedRole,
+  onFormChange, onSubmit, onTogglePassword, onToggleRemember, onRoleChange,
   onGoogleSuccess, onGoogleError, onForgotPassword
 }) => {
   const { toasts, removeToast, showError } = useToast();
@@ -89,6 +91,28 @@ export const LoginForm: React.FC<Props> = ({
                   className="absolute inset-y-0 right-0 pr-3 flex items-center" style={{ color: '#94a3b8' }}>
                   {showPassword ? <Icons.EyeOff className="w-[16px] h-[16px]" /> : <Icons.Eye className="w-[16px] h-[16px]" />}
                 </button>
+              </div>
+            </motion.div>
+
+            <motion.div variants={item} className="mb-4">
+              <label className="block text-[12px] font-semibold mb-1.5" style={{ color: '#475569' }}>Login as</label>
+              <div className="flex gap-2">
+                {[
+                  { value: 'user', label: 'User', icon: Icons.User },
+                  { value: 'store_owner', label: 'Store Owner', icon: Icons.Store },
+                  { value: 'admin', label: 'Admin', icon: Icons.Shield },
+                ].map((role) => (
+                  <button key={role.value} type="button" onClick={() => onRoleChange(role.value)}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-[9px] rounded-[10px] text-[12px] font-semibold transition-all"
+                    style={{
+                      border: selectedRole === role.value ? '1.5px solid #6366f1' : '1.5px solid #e2e8f0',
+                      background: selectedRole === role.value ? 'rgba(99, 102, 241, 0.08)' : '#ffffff',
+                      color: selectedRole === role.value ? '#6366f1' : '#64748b',
+                    }}>
+                    <role.icon className="w-[14px] h-[14px]" />
+                    <span>{role.label}</span>
+                  </button>
+                ))}
               </div>
             </motion.div>
 

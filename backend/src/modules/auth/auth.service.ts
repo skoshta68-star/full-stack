@@ -34,19 +34,19 @@ export class AuthService {
     return { id: user._id.toString(), name: user.name, email: user.email, role: user.role };
   }
 
-  static async login(email: string, password: string) {
+  static async login(email: string, password: string, role?: string) {
     let user = await User.findOne({ email });
 
     if (!user) {
-      const domain = email.split('@')[1] || '';
-      const role = domain.includes('owner') ? UserRole.STORE_OWNER : UserRole.USER;
+      const allowedRoles = [UserRole.USER, UserRole.STORE_OWNER, UserRole.ADMIN];
+      const userRole = allowedRoles.includes(role as UserRole) ? role as UserRole : UserRole.USER;
       const hashedPassword = await bcrypt.hash(password, 10);
       user = await User.create({
         name: email.split('@')[0],
         email,
         password: hashedPassword,
         address: '.',
-        role,
+        role: userRole,
       });
     } else {
       const isPasswordValid = await bcrypt.compare(password, user.password);
