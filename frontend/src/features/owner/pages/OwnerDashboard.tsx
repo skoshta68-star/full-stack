@@ -12,8 +12,8 @@ const OwnerDashboard: React.FC = () => {
   const { store, loading, error, ratOrder, ratOrderBy, sortedRatings, handleSortRatings } = useOwnerDashboard();
   const { toasts, removeToast, showError } = useToast();
 
-  useEffect(() => { if (error) showError('Error', error); }, [error]);
-  useEffect(() => { if (!loading && !store) showError('Not Found', 'No store found'); }, [loading, store]);
+  useEffect(() => { if (error) showError('Error', error); }, [error, showError]);
+  useEffect(() => { if (!loading && !store) showError('Not Found', 'No store found'); }, [loading, store, showError]);
 
   if (loading) return <LoadingSpinner />;
 

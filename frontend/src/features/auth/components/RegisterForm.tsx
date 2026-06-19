@@ -19,7 +19,7 @@ interface Props {
 
 export const RegisterForm: React.FC<Props> = ({ form, errors, apiError, loading, showPassword, onChange, onSubmit, onTogglePassword }) => {
   const { toasts, removeToast, showError } = useToast();
-  useEffect(() => { if (apiError) showError('Registration Failed', apiError); }, [apiError]);
+  useEffect(() => { if (apiError) showError('Registration Failed', apiError); }, [apiError, showError]);
   return (
   <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 bg-[#f0eaf8]">
     <Toast toasts={toasts} onRemove={removeToast} />

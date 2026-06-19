@@ -30,7 +30,7 @@ export const LoginForm: React.FC<Props> = ({
   onFormChange, onSubmit, onQuickLogin, onTogglePassword, onToggleRemember
 }) => {
   const { toasts, removeToast, showError } = useToast();
-  useEffect(() => { if (error) showError('Login Failed', error); }, [error]);
+  useEffect(() => { if (error) showError('Login Failed', error); }, [error, showError]);
   return (
   <div className="w-full lg:w-[44%] flex items-center justify-center px-5 py-5 bg-[#f0eaf8]">
     <Toast toasts={toasts} onRemove={removeToast} />
