@@ -26,7 +26,7 @@ function Users(props: any) {
 }
 
 export const IllustrationPanel: React.FC = () => (
-  <div className="hidden lg:flex lg:w-[56%] relative overflow-hidden flex-col bg-[#f0eaf8]">
+  <div className="hidden lg:flex lg:w-[56%] relative flex-col bg-[#f0eaf8]">
     <div className="absolute top-[14%] left-[18%] w-[6px] h-[6px] rounded-full" style={{ background: '#c4a8f0', opacity: 0.55 }} />
     <div className="absolute top-[9%] left-[44%] w-[5px] h-[5px] rounded-full" style={{ background: '#b89ae8', opacity: 0.45 }} />
     <div className="absolute top-[20%] right-[28%] w-[7px] h-[7px] rounded-full" style={{ background: '#d4bef5', opacity: 0.45 }} />
@@ -92,9 +92,9 @@ export const IllustrationPanel: React.FC = () => (
       initial={{ scale: 0.85, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' as const }}
-      className="absolute top-[5%] left-1/2 -translate-x-1/2 pointer-events-none">
+      className="absolute bottom-[10%] left-1/2 -translate-x-1/2 pointer-events-none">
       <img src="/assets/login-illustration.png" alt="Store Rating Illustration"
-        className="w-[850px] max-w-none h-auto object-contain"
+        className="w-[420px] h-auto object-contain"
         style={{ filter: 'drop-shadow(0 20px 40px rgba(120, 100, 180, 0.2))' }} />
     </motion.div>
   </div>
