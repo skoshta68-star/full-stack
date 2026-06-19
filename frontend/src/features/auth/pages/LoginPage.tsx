@@ -16,8 +16,8 @@ const LoginPage: React.FC = () => {
   useEffect(() => { if (isAuthenticated) navigate('/', { replace: true }); }, [isAuthenticated, navigate]);
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-[#f8f9fc]">
-      <div className="flex-1 flex min-h-0">
+    <div className="h-full flex flex-col bg-[#f0eaf8]">
+      <div className="flex-1 flex">
         <IllustrationPanel />
         <LoginForm
           formData={formData} error={error} loading={loading}

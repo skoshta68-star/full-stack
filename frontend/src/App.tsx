@@ -38,7 +38,7 @@ const AppContent: React.FC = () => {
     return (
       <div className="h-screen flex flex-col overflow-hidden">
         <Navbar />
-        <div className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 bg-[#f0eaf8]">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/login" element={<LoginPage />} />
