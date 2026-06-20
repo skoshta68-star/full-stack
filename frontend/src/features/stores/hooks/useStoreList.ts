@@ -25,12 +25,12 @@ export function useStoreList() {
     finally { setLoading(false); }
   };
 
-  useEffect(() => { fetchStores(); }, [order, orderBy]);
+  useEffect(() => { fetchStores(); }, [order, orderBy, fetchStores]);
 
   useEffect(() => {
     const timer = setTimeout(() => { fetchStores(); }, 300);
     return () => clearTimeout(timer);
-  }, [search.name, search.address]);
+  }, [search.name, search.address, fetchStores]);
 
   const handleRateStore = (s: Store) => { setDialog({ open: true, store: s }); setSelectedRating(s.userRating); };
   const handleSubmitRating = async () => {

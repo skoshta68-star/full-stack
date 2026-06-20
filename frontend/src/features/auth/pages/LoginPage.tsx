@@ -27,7 +27,7 @@ const LoginPage: React.FC = () => {
     return 'login';
   });
 
-  useEffect(() => { if (state?.email) setFormData(prev => ({ ...prev, email: state.email!, password: state.password || '' })); }, []);
+  useEffect(() => { if (state?.email) setFormData(prev => ({ ...prev, email: state.email!, password: state.password || '' })); }, [setFormData, state?.email, state?.password]);
   useEffect(() => { if (isAuthenticated) navigate('/', { replace: true }); }, [isAuthenticated, navigate]);
   useEffect(() => {
     if (location.pathname === '/forgot-password') setView('forgot');
