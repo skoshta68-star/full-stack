@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { adminApi } from '../api/admin.api';
 import { UserFormData } from '../types';
 import { User, UserRole } from '../../../types';
@@ -20,7 +20,7 @@ export function useUserManagement() {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [deleteDialog, setDeleteDialog] = useState<{ open: boolean; id: number | null }>({ open: false, id: null });
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       const params: Record<string, string> = { sortBy: orderBy, sortOrder: order.toUpperCase() };
@@ -28,9 +28,9 @@ export function useUserManagement() {
       setUsers((await adminApi.getUsers(params)).users);
     } catch (err: any) { setError(err.response?.data?.message || 'Failed'); }
     finally { setLoading(false); }
-  };
+  }, [orderBy, order, filters]);
 
-  useEffect(() => { fetchUsers(); }, [order, orderBy, filters]);
+  useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
   const handleSort = (field: SortField) => {
     const a = orderBy === field && order === 'asc';

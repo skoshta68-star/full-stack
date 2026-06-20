@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { storesApi } from '../api/stores.api';
 import { ratingsApi } from '../api/ratings.api';
 import { Store } from '../types';
@@ -14,7 +14,7 @@ export function useStoreList() {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<'table' | 'cards'>('cards');
 
-  const fetchStores = async () => {
+  const fetchStores = useCallback(async () => {
     try {
       setLoading(true);
       const params: Record<string, string> = { sortBy: orderBy, sortOrder: order.toUpperCase() };
@@ -23,14 +23,14 @@ export function useStoreList() {
       setStores((await storesApi.getAll(params)).stores);
     } catch (err: any) { setError(err.response?.data?.message || 'Failed to load stores'); }
     finally { setLoading(false); }
-  };
+  }, [orderBy, order, search.name, search.address]);
 
-  useEffect(() => { fetchStores(); }, [order, orderBy, fetchStores]);
+  useEffect(() => { fetchStores(); }, [fetchStores]);
 
   useEffect(() => {
     const timer = setTimeout(() => { fetchStores(); }, 300);
     return () => clearTimeout(timer);
-  }, [search.name, search.address, fetchStores]);
+  }, [fetchStores]);
 
   const handleRateStore = (s: Store) => { setDialog({ open: true, store: s }); setSelectedRating(s.userRating); };
   const handleSubmitRating = async () => {
