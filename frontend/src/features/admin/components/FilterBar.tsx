@@ -21,12 +21,12 @@ export const FilterBar: React.FC<Props> = ({ fields, filters, onChange }) => (
     </div>
     <div className={`grid grid-cols-1 ${gridCols[fields.length] || 'md:grid-cols-2'} gap-3`}>
       {fields.map((f) => f.type === 'select' ? (
-        <select key={f.key} value={filters[f.key]} onChange={(e) => onChange({ ...filters, [f.key]: e.target.value })}
+        <select key={f.key} name={`filter-${f.key}`} value={filters[f.key]} onChange={(e) => onChange({ ...filters, [f.key]: e.target.value })}
           className="input-field text-sm" autoComplete="off">
           {f.options?.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       ) : (
-        <input key={f.key} placeholder={f.placeholder} value={filters[f.key]}
+        <input key={f.key} name={`filter-${f.key}`} placeholder={f.placeholder} value={filters[f.key]}
           onChange={(e) => onChange({ ...filters, [f.key]: e.target.value })} className="input-field text-sm" autoComplete="off" />
       ))}
     </div>

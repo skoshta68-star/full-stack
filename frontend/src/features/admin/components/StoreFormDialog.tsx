@@ -36,7 +36,7 @@ export const StoreFormDialog: React.FC<Props> = ({ open, editing, formData, erro
           {fields.map(({ key, label, type, placeholder }) => (
             <div key={key}>
               <label className="block text-sm font-medium text-surface-700 mb-1">{label}</label>
-              <input type={type} placeholder={placeholder} value={(formData as any)[key]}
+              <input type={type} name={`dialog-${key}`} placeholder={placeholder} value={(formData as any)[key]}
                 onChange={(e) => onChange({ ...formData, [key]: e.target.value })}
                 className="input-field" autoComplete="off" minLength={key === 'name' ? 20 : undefined} maxLength={key === 'name' ? 60 : undefined} />
               {errors[key] && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-xs mt-1">{errors[key]}</motion.p>}
@@ -44,7 +44,7 @@ export const StoreFormDialog: React.FC<Props> = ({ open, editing, formData, erro
           ))}
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1">Address</label>
-            <textarea rows={2} maxLength={400} placeholder="Enter store address" value={formData.address}
+            <textarea rows={2} maxLength={400} name="dialog-address" placeholder="Enter store address" value={formData.address}
               onChange={(e) => onChange({ ...formData, address: e.target.value })} className="input-field resize-none" autoComplete="off" />
             {errors.address && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-xs mt-1">{errors.address}</motion.p>}
           </div>
