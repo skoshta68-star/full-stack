@@ -15,7 +15,8 @@ interface Props {
 
 export const UserTable: React.FC<Props> = ({ users, order, orderBy, onSort, onEdit, onDelete }) => (
   <div className="card overflow-hidden">
-    <div className="overflow-x-auto max-h-[420px] overflow-y-auto">
+    {/* Desktop table */}
+    <div className="hidden md:block overflow-x-auto max-h-[420px] overflow-y-auto">
       <table className="w-full text-sm">
         <thead className="bg-surface-50">
           <tr>
@@ -49,6 +50,37 @@ export const UserTable: React.FC<Props> = ({ users, order, orderBy, onSort, onEd
           </AnimatePresence>
         </tbody>
       </table>
+      {users.length === 0 && <EmptyState icon={Icons.Users} title="No users found" />}
+    </div>
+
+    {/* Mobile cards */}
+    <div className="md:hidden max-h-[420px] overflow-y-auto">
+      <AnimatePresence>
+        {users.map((u, i) => (
+          <motion.div key={u.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ delay: i * 0.03 }}
+            className="p-4 border-b last:border-b-0 hover:bg-primary-50/30 transition-colors" style={{ borderColor: '#f1f5f9' }}>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-3">
+                <AvatarInitials name={u.name} gradient={false} />
+                <div>
+                  <p className="font-semibold text-[13px]" style={{ color: '#1e293b' }}>{u.name}</p>
+                  <p className="text-[11px]" style={{ color: '#64748b' }}>{u.email}</p>
+                </div>
+              </div>
+              <RoleBadge role={u.role} />
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-[11px]" style={{ color: '#94a3b8' }}>{u.address}</p>
+              {u.role === UserRole.STORE_OWNER && (
+                <span className="text-[12px] font-semibold" style={{ color: '#059669' }}>{(u.averageRating ?? 0).toFixed(1)} ★</span>
+              )}
+            </div>
+            <div className="mt-2 flex justify-end">
+              <RowActions onEdit={() => onEdit(u)} onDelete={() => onDelete(u.id)} />
+            </div>
+          </motion.div>
+        ))}
+      </AnimatePresence>
       {users.length === 0 && <EmptyState icon={Icons.Users} title="No users found" />}
     </div>
   </div>

@@ -13,7 +13,8 @@ interface Props {
 
 export const StoreTable: React.FC<Props> = ({ stores, order, orderBy, onSort, onEdit, onDelete }) => (
   <div className="card overflow-hidden">
-    <div className="overflow-x-auto max-h-[420px] overflow-y-auto">
+    {/* Desktop table */}
+    <div className="hidden md:block overflow-x-auto max-h-[420px] overflow-y-auto">
       <table className="w-full text-sm">
         <thead className="bg-surface-50">
           <tr>
@@ -50,6 +51,35 @@ export const StoreTable: React.FC<Props> = ({ stores, order, orderBy, onSort, on
           </AnimatePresence>
         </tbody>
       </table>
+      {stores.length === 0 && <EmptyState icon={Icons.Store} title="No stores found" />}
+    </div>
+
+    {/* Mobile cards */}
+    <div className="md:hidden max-h-[420px] overflow-y-auto">
+      <AnimatePresence>
+        {stores.map((s, i) => (
+          <motion.div key={s.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
+            className="p-4 border-b last:border-b-0 hover:bg-primary-50/30 transition-colors" style={{ borderColor: '#f1f5f9' }}>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-3">
+                <AvatarInitials name={s.name} size="sm" />
+                <div>
+                  <p className="font-semibold text-[13px]" style={{ color: '#1e293b' }}>{s.name}</p>
+                  <p className="text-[11px]" style={{ color: '#64748b' }}>{s.email}</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Icons.Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+                <span className="font-semibold text-[13px]" style={{ color: '#1e293b' }}>{(s.overallRating ?? 0).toFixed(1)}</span>
+              </div>
+            </div>
+            <p className="text-[11px] mb-2" style={{ color: '#94a3b8' }}>{s.address}</p>
+            <div className="flex justify-end">
+              <RowActions onEdit={() => onEdit(s)} onDelete={() => onDelete(s.id)} />
+            </div>
+          </motion.div>
+        ))}
+      </AnimatePresence>
       {stores.length === 0 && <EmptyState icon={Icons.Store} title="No stores found" />}
     </div>
   </div>

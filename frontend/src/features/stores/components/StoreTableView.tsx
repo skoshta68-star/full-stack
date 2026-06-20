@@ -21,7 +21,8 @@ export const StoreTableView: React.FC<Props> = ({ stores, order, orderBy, onSort
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
       className="bg-white rounded-2xl shadow-sm overflow-hidden">
-      <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+      {/* Desktop table */}
+      <div className="hidden md:block overflow-x-auto max-h-[500px] overflow-y-auto">
         <table className="w-full text-sm">
           <thead>
             <tr style={{ background: '#f8fafc' }}>
@@ -77,6 +78,42 @@ export const StoreTableView: React.FC<Props> = ({ stores, order, orderBy, onSort
             </AnimatePresence>
           </tbody>
         </table>
+        {stores.length === 0 && <EmptyState icon={Icons.Store} title="No stores found" subtitle="Try adjusting your search criteria" />}
+      </div>
+
+      {/* Mobile cards */}
+      <div className="md:hidden max-h-[500px] overflow-y-auto">
+        <AnimatePresence>
+          {stores.map((s, i) => (
+            <motion.div key={s.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
+              className="p-4 border-b last:border-b-0 hover:bg-purple-50/30 transition-colors" style={{ borderColor: '#f1f5f9' }}>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center space-x-3">
+                  <AvatarInitials name={s.name} size="md" />
+                  <div>
+                    <p className="font-semibold text-[13px]" style={{ color: '#1e293b' }}>{s.name}</p>
+                    <p className="text-[11px]" style={{ color: '#64748b' }}>{s.address}</p>
+                  </div>
+                </div>
+                <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                  onClick={() => onRate(s)}
+                  className="w-9 h-9 rounded-full flex items-center justify-center shadow-md"
+                  style={{ background: 'linear-gradient(135deg, #6366f1, #4f46e5)' }}>
+                  <Icons.Pencil className="w-4 h-4 text-white" />
+                </motion.button>
+              </div>
+              <div className="flex items-center justify-between">
+                <StarRating rating={s.overallRating ?? 0} size="sm" showValue />
+                {s.userRating ? (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-medium"
+                    style={{ background: '#f0eaf8', color: '#6366f1' }}>{s.userRating}/5</span>
+                ) : (
+                  <span className="text-[12px]" style={{ color: '#d1d5db' }}>Not rated</span>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
         {stores.length === 0 && <EmptyState icon={Icons.Store} title="No stores found" subtitle="Try adjusting your search criteria" />}
       </div>
     </motion.div>

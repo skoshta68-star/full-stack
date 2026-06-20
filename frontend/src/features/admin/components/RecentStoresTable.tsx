@@ -17,7 +17,8 @@ export const RecentStoresTable: React.FC<Props> = ({ stores, onManage }) => (
         <span>Manage Stores</span><Icons.ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
-    <div className="overflow-x-auto max-h-[320px] overflow-y-auto">
+    {/* Desktop table */}
+    <div className="hidden md:block overflow-x-auto max-h-[320px] overflow-y-auto">
       <table className="w-full text-[13px]">
         <thead>
           <tr>
@@ -50,6 +51,28 @@ export const RecentStoresTable: React.FC<Props> = ({ stores, onManage }) => (
           {stores.length === 0 && <tr><td colSpan={3} className="text-center py-8" style={{ color: '#94a3b8' }}>No stores yet</td></tr>}
         </tbody>
       </table>
+    </div>
+    {/* Mobile cards */}
+    <div className="md:hidden max-h-[320px] overflow-y-auto">
+      {stores.map((store: any, i: number) => (
+        <motion.div key={store.id || i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.05 }}
+          className="px-4 py-3 border-b last:border-b-0 hover:bg-gray-50 transition-colors flex items-center justify-between" style={{ borderColor: '#f1f5f9' }}>
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: colors[i % colors.length] }}>
+              <Icons.Store className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="font-medium text-[13px]" style={{ color: '#1e293b' }}>{store.name}</p>
+              <p className="text-[11px]" style={{ color: '#64748b' }}>{store.email}</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-1">
+            <Icons.Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+            <span className="font-semibold text-[13px]" style={{ color: '#1e293b' }}>{(store.overallRating ?? 0).toFixed(1)}</span>
+          </div>
+        </motion.div>
+      ))}
+      {stores.length === 0 && <div className="text-center py-8 text-[13px]" style={{ color: '#94a3b8' }}>No stores yet</div>}
     </div>
   </motion.div>
 );

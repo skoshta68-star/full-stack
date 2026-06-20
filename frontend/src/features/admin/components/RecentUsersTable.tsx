@@ -17,7 +17,8 @@ export const RecentUsersTable: React.FC<Props> = ({ users, onManage }) => (
         <span>Manage Users</span><Icons.ArrowRight className="w-3.5 h-3.5" />
       </button>
     </div>
-    <div className="overflow-x-auto max-h-[320px] overflow-y-auto">
+    {/* Desktop table */}
+    <div className="hidden md:block overflow-x-auto max-h-[320px] overflow-y-auto">
       <table className="w-full text-[13px]">
         <thead>
           <tr>
@@ -43,6 +44,23 @@ export const RecentUsersTable: React.FC<Props> = ({ users, onManage }) => (
           {users.length === 0 && <tr><td colSpan={3} className="text-center py-8" style={{ color: '#94a3b8' }}>No users yet</td></tr>}
         </tbody>
       </table>
+    </div>
+    {/* Mobile cards */}
+    <div className="md:hidden max-h-[320px] overflow-y-auto">
+      {users.map((user: any, i: number) => (
+        <motion.div key={user.id || i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.05 }}
+          className="px-4 py-3 border-b last:border-b-0 hover:bg-gray-50 transition-colors flex items-center justify-between" style={{ borderColor: '#f1f5f9' }}>
+          <div className="flex items-center space-x-3">
+            <AvatarInitials name={user.name} size="sm" />
+            <div>
+              <p className="font-medium text-[13px]" style={{ color: '#1e293b' }}>{user.name}</p>
+              <p className="text-[11px]" style={{ color: '#64748b' }}>{user.email}</p>
+            </div>
+          </div>
+          <RoleBadge role={user.role} />
+        </motion.div>
+      ))}
+      {users.length === 0 && <div className="text-center py-8 text-[13px]" style={{ color: '#94a3b8' }}>No users yet</div>}
     </div>
   </motion.div>
 );
