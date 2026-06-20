@@ -33,7 +33,7 @@ export const IllustrationPanel: React.FC = () => (
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
             style={{ background: 'rgba(99, 102, 241, 0.08)', border: '1px solid rgba(99, 102, 241, 0.15)' }}>
             <Icons.BadgeCheck className="w-4 h-4" style={{ color: '#6366f1' }} />
-            <span className="text-[12px] font-semibold" style={{ color: '#6366f1' }}>Trusted by 10,000+ Stores</span>
+            <span className="text-[12px] font-semibold" style={{ color: '#6366f1' }}>Your Voice Matters</span>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
@@ -106,7 +106,7 @@ export const IllustrationPanel: React.FC = () => (
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-3"
           style={{ background: 'rgba(99, 102, 241, 0.08)', border: '1px solid rgba(99, 102, 241, 0.15)' }}>
           <Icons.BadgeCheck className="w-3.5 h-3.5" style={{ color: '#6366f1' }} />
-          <span className="text-[11px] font-semibold" style={{ color: '#6366f1' }}>Trusted by 10,000+ Stores</span>
+          <span className="text-[11px] font-semibold" style={{ color: '#6366f1' }}>Your Voice Matters</span>
         </div>
         <h2 className="text-[28px] font-display font-extrabold leading-[1.1]" style={{ color: '#1e293b' }}>Rate Stores.</h2>
         <h2 className="text-[28px] font-display font-extrabold leading-[1.1]" style={{ color: '#6366f1' }}>Share Feedback.</h2>
