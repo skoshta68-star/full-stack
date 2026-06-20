@@ -94,9 +94,9 @@ export const IllustrationPanel: React.FC = () => (
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' as const }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] pointer-events-none">
         <img src="/assets/login-illustration.png" alt="Store Rating Illustration"
-          className="w-[480px] h-auto object-contain"
+          className="w-[520px] h-auto object-contain"
           style={{ filter: 'drop-shadow(0 20px 40px rgba(120, 100, 180, 0.2))' }} />
       </motion.div>
     </div>
@@ -107,7 +107,7 @@ export const IllustrationPanel: React.FC = () => (
         transition={{ duration: 0.6, ease: 'easeOut' as const }}
         className="mb-5">
         <img src="/assets/login-illustration.png" alt="Store Rating Illustration"
-          className="w-[220px] h-auto object-contain"
+          className="w-[260px] h-auto object-contain"
           style={{ filter: 'drop-shadow(0 16px 32px rgba(120, 100, 180, 0.2))' }} />
       </motion.div>
 
