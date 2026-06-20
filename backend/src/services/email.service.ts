@@ -25,7 +25,7 @@ export class EmailService {
     console.log('[EmailService] Sending reset email to:', to);
 
     const { data, error } = await client.emails.send({
-      from: process.env.EMAIL_FROM || 'Store Rating System <noreply@resend.dev>',
+      from: 'Store Rating System <onboarding@resend.dev>',
       to,
       subject: 'Password Reset Request - Store Rating System',
       html: `
