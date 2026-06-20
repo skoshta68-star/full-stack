@@ -6,9 +6,7 @@ const features = [
   { icon: Icons.Star, title: 'Rate & Review Stores', desc: 'Rate stores 1-5 stars and share your experience.' },
   { icon: Icons.Search, title: 'Discover Stores', desc: 'Search and filter stores by name, location or ratings.' },
   { icon: Icons.Store, title: 'Store Management', desc: 'Owners manage profile, view feedback and grow.' },
-  { icon: Icons.MessageSquare, title: 'Customer Feedback', desc: 'Users share reviews, stores respond and improve.' },
   { icon: Icons.Users, title: 'Multi-Role Access', desc: 'Admin, Store Owner — one platform, many powers.' },
-  { icon: Icons.Shield, title: 'Secure & Private', desc: 'Google Sign-In, JWT auth, encrypted data.' },
 ];
 
 const bottomItems = [
@@ -45,7 +43,7 @@ export const IllustrationPanel: React.FC = () => (
             <p className="text-[14px] mt-3 max-w-[300px] leading-relaxed" style={{ color: '#64748b' }}>Your feedback helps stores grow and serve you better.</p>
           </motion.div>
 
-          <div className="mt-6 grid grid-cols-2 gap-3">
+          <div className="mt-6 grid grid-cols-2 gap-3 max-w-[380px]">
             {features.map((f, i) => (
               <motion.div key={f.title} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 + i * 0.08 }}
